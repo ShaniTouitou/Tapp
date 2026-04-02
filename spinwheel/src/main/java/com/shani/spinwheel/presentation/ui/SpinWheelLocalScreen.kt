@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import com.shani.spinwheel.R
 import kotlinx.coroutines.launch
 import kotlin.random.Random
+import coil.compose.AsyncImage
 
 @Composable
 fun SpinWheelLocalScreen(
@@ -27,6 +28,11 @@ fun SpinWheelLocalScreen(
     val rotation = remember { Animatable(0f) }
     val scope = rememberCoroutineScope()
 
+    val bg = "https://drive.google.com/uc?export=view&id=10V3f826CIbrj-ltfQPKFNXDnY04gOzq-"
+    val wheelFrame = "https://drive.google.com/uc?export=view&id=1wvd9j4o9eqHaB1WewMLHsPqbQS8Ziyhz"
+    val wheelSpin = "https://drive.google.com/uc?export=view&id=1sL_zQT3QGqlwhFG8ov4-SzwXZp3OyJ7H"
+    val wheel = "https://drive.google.com/uc?export=view&id=1pZ0BPCEJQq_2hjGb4_m9M05cqqE3D3aX"
+
     fun randomTargetRotation(): Float {
         val spins = Random.nextInt(minimumSpins, maximumSpins + 1)
         return rotation.value + spins * 360f
@@ -36,34 +42,32 @@ fun SpinWheelLocalScreen(
         modifier = Modifier.fillMaxSize(),
         contentAlignment = Alignment.Center
     ) {
-        Image(
-            painter = painterResource(id = R.drawable.bg),
-            contentDescription = "Background",
-            modifier = Modifier.fillMaxSize(),
-            contentScale = ContentScale.Crop
+        AsyncImage(
+            model = bg,
+            contentDescription = null,
+            contentScale = ContentScale.Crop,
+            modifier = Modifier.fillMaxSize()
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.wheel),
-            contentDescription = "Wheel",
+        AsyncImage(
+            model = wheel,
+            contentDescription = null,
             modifier = Modifier
-                .size(260.dp)
-                .rotate(rotation.value),
-            contentScale = ContentScale.Fit
+                .size(250.dp)
+                .rotate(rotation.value)
         )
 
-        Image(
-            painter = painterResource(id = R.drawable.wheel_frame),
-            contentDescription = "Wheel frame",
-            modifier = Modifier.size(285.dp),
-            contentScale = ContentScale.Fit
+        AsyncImage(
+            model = wheelFrame,
+            contentDescription = null,
+            modifier = Modifier.size(300.dp)
         )
-
-        Image(
-            painter = painterResource(id = R.drawable.wheel_spin),
-            contentDescription = "Spin button",
+        
+        AsyncImage(
+            model = wheelSpin,
+            contentDescription = null,
             modifier = Modifier
-                .size(84.dp)
+                .size(100.dp)
                 .clickable {
                     scope.launch {
                         rotation.animateTo(
@@ -71,8 +75,7 @@ fun SpinWheelLocalScreen(
                             animationSpec = tween(durationMillis)
                         )
                     }
-                },
-            contentScale = ContentScale.Fit
+                }
         )
     }
 }
