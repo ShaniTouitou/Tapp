@@ -23,6 +23,7 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 import kotlinx.serialization.json.Json
 import okhttp3.OkHttpClient
+import com.shani.spinwheel.presentation.ui.SpinWheelLocalScreen
 
 class MainActivity : ComponentActivity() {
 
@@ -44,7 +45,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             MaterialTheme {
-                ConfigTestScreen(repository = repository)
+                SpinWheelLocalScreen()
             }
         }
     }
