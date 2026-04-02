@@ -23,7 +23,6 @@ class ConfigApi(
             val body = response.body?.string()
                 ?: throw IllegalStateException("Empty config response")
 
-            return json.decodeFromString(body)
-        }
+            return json.decodeFromString<WidgetConfigResponse>(body)        }
     }
 }
