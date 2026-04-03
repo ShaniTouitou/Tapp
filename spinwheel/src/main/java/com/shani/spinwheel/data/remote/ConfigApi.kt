@@ -25,4 +25,14 @@ class ConfigApi(
 
             return json.decodeFromString<WidgetConfigResponse>(body)        }
     }
+
+    fun fetchRawJson(url: String): String {
+        val request = Request.Builder().url(url).build()
+
+        client.newCall(request).execute().use { response ->
+            if (!response.isSuccessful) throw Exception("Network error")
+
+            return response.body?.string() ?: throw Exception("Empty body")
+        }
+    }
 }

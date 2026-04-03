@@ -12,6 +12,7 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.shani.spinwheel.data.cache.AssetFileCache
+import com.shani.spinwheel.data.cache.ConfigCache
 import com.shani.spinwheel.data.cache.WidgetPreferences
 import com.shani.spinwheel.data.model.WidgetConfig
 import com.shani.spinwheel.data.remote.AssetDownloader
@@ -38,7 +39,14 @@ class MainActivity : ComponentActivity() {
 
         val configApi = ConfigApi(client, json)
         val prefs = WidgetPreferences(this)
-        val repository = SpinWheelRepository(configApi, prefs)
+        val configCache = ConfigCache(this)
+
+        val repository = SpinWheelRepository(
+            api = configApi,
+            prefs = prefs,
+            cache = configCache,
+            json = json
+        )
 
         val assetDownloader = AssetDownloader(client)
         val assetCache = AssetFileCache(this)
