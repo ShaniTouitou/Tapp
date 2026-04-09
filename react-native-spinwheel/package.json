@@ -1,0 +1,17 @@
+{
+  "name": "react-native-spinwheel",
+  "version": "0.0.1",
+  "main": "src/index.ts",
+  "react-native": "src/index.ts",
+  "types": "src/index.ts",
+  "source": "src/index.ts",
+  "files": [
+    "src",
+    "android",
+    "react-native.config.js",
+    "!android/build",
+    "!**/__tests__",
+    "!**/__fixtures__",
+    "!**/__mocks__"
+  ]
+}
